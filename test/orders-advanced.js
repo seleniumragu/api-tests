@@ -217,7 +217,7 @@ describe('Orders', () => {
         it('/Orders flow violated', () => {
             const data = {
                 "id": orderID,
-                "status": "CANCELLED",
+                "status": "TEST",
                 "ongoingTime": "2021-09-01T14:53:26.000Z"
             }
             return request
