@@ -18,7 +18,16 @@ Install the below plugins
 2. Mocha
 3. Chai
 4. Babel
+5. mochawesome (for reporting)
+
+### Command to install all this plugins
+
+npm i --save-dev supertest mocha chai mochawesome @babel/cli @babel/core @babel/node @babel/register @babel/preset-env @babel/plugin-transform-runtime
 
 ### Run the tests
 
 npm test
+
+### Run the tests with mochawesome reporter
+
+npm test -- --reporter mochawesome
