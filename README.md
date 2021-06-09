@@ -8,7 +8,7 @@
 ### Mac OS
 1. Install [nodeJS] (https://nodejs.org/en/download/)
 
-##IDE need to installed
+## IDE need to be installed
 1. Install [VS CODE] (https://code.visualstudio.com/download)
 
 ## Plugins need to be updated
