@@ -77,8 +77,6 @@ describe('Orders', () => {
         it('/Orders with return callback', async () => {
             const res = await request
                 .get(`/v1/orders/${orderID}`).then((res) => {
-                    console.log(err);
-                    console.log(res.body);
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq(orderID)
@@ -88,8 +86,6 @@ describe('Orders', () => {
         it('/Orders with return callback', async () => {
             const res = await request
                 .get('/v1/orders/.1').then((res) => {
-                    console.log(err);
-                    console.log(res.body);
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.not.be.eq(orderID)
@@ -99,17 +95,10 @@ describe('Orders', () => {
 
     describe('PUT', () => {
         it('/Orders to take', async () => {
-            const data = {
-                "id": orderID,
-                "status": "ONGOING",
-                "ongoingTime": "2021-09-01T14:53:26.000Z"
-            }
             const res = await request
                 .put(`/v1/orders/${orderID}/take`)
                 .send(data)
                 .then((res) => {
-                    console.log(err);
-                    console.log(res.body);
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })
@@ -117,34 +106,20 @@ describe('Orders', () => {
         });
 
         it('/Orders complete', async () => {
-            const data = {
-                "id": orderID,
-                "status": "COMPLETED",
-                "completedAt": "2021-09-01T14:53:26.000Z"
-            }
             const res = await request
                 .put(`/v1/orders/${orderID}/complete`)
                 .send(data)
                 .then((res) => {
-                    console.log(err);
-                    console.log(res.body);
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })
                 });
         });
 
         it('PUT /Orders cancel', async () => {
-            const data = {
-                "id": orderID,
-                "status": "CANCELLED",
-                "cancelledAt": "2021-09-01T14:53:26.000Z"
-            }
             const res = await request
                 .put(`/v1/orders/${orderID}/cancel`)
                 .send(data)
                 .then((res) => {
-                    console.log(err);
-                    console.log(res.body);
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })
                 });

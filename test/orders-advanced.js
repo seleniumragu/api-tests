@@ -66,7 +66,7 @@ describe('Orders', () => {
                     console.log(res.body);
                     expect(res.body.code).to.be(200);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq(orderID)
+                    expect(res.body.data.id).to.be.eq(orderID)
                 });
         });
         //Get method Asynchronus behaviour with return
@@ -77,66 +77,47 @@ describe('Orders', () => {
                     console.log(res.body);
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq(orderID)
                 });
         });
     });
 
     describe('PUT', () => {
+
+        it('/Orders flow violated', () => {
+            return request
+                .put(`/v1/orders/${orderID}/complete`)
+                .send(data)
+                .then((res) => {
+                    expect(422);
+                    expect(res.body.data).to.not.be.empty;
+                    expect(res.body.data.id), to.not.be.eq({ orderID })
+                });
+        });
+
         it('/Orders to take', () => {
-            const data = {
-                "id": orderID,
-                "status": "ONGOING",
-                "ongoingTime": "2021-09-01T14:53:26.000Z"
-            }
             return request
                 .put(`/v1/orders/${orderID}/take`)
                 .send(data)
                 .then((res) => {
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.id).to.be.eq({ orderID })
+                    expect(res.body.data.status).to.be.eq("ONGOING")
                 });
         });
 
         it('/Orders does not exist', () => {
-            const data = {
-                "id": .1,
-                "status": "ONGOING",
-                "ongoingTime": "2021-09-01T14:53:26.000Z"
-            }
             return request
-                .put(`/v1/orders/${orderID}/take`)
+                .put(`/v1/orders/.01/take`)
                 .send(data)
                 .then((res) => {
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq({ orderID })
                 });
         });
 
-        it('/Orders flow violated', () => {
-            const data = {
-                "id": orderID,
-                "status": "TEST",
-                "ongoingTime": "2021-09-01T14:53:26.000Z"
-            }
-            return request
-                .put(`/v1/orders/${orderID}/take`)
-                .send(data)
-                .then((res) => {
-                    expect(422);
-                    expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq({ orderID })
-                });
-        });
 
         it('/Orders complete', () => {
-            const data = {
-                "id": orderID,
-                "status": "COMPLETED",
-                "completedAt": "2021-09-01T14:53:26.000Z"
-            }
             return request
                 .put(`/v1/orders/${orderID}/complete`)
                 .send(data)
@@ -145,88 +126,63 @@ describe('Orders', () => {
                     console.log(res.body);
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.status).to.be.eq("COMPLETED")
+
                 });
         });
 
         it('/Orders does not exist', () => {
-            const data = {
-                "id": .1,
-                "status": "COMPLETED",
-                "completedAt": "2021-09-01T14:53:26.000Z"
-            }
+            // order doesn't exist
             return request
-                .put(`/v1/orders/${orderID}/complete`)
+                .put(`/v1/orders/.01/complete`)
                 .send(data)
                 .then((res) => {
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq({ orderID })
                 });
         });
 
         it('/Orders flow violated', () => {
-            const data = {
-                "id": orderID,
-                "status": "TEST",
-                "ongoingTime": "2021-09-01T14:53:26.000Z"
-            }
+            //order already completed
             return request
-                .put(`/v1/orders/${orderID}/complete`)
+                .put(`/v1/orders/${orderID}/take`)
                 .send(data)
                 .then((res) => {
                     expect(422);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq({ orderID })
                 });
         });
 
 
         it('PUT /Orders cancel', () => {
-            const data = {
-                "id": orderID,
-                "status": "CANCELLED",
-                "cancelledAt": "2021-09-01T14:53:26.000Z"
-            }
             return request
                 .put(`/v1/orders/${orderID}/cancel`)
                 .send(data)
                 .then((res) => {
-                    console.log(err);
-                    console.log(res.body);
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.status).to.be.eq("CANCELLED")
                 });
         });
 
         it('/Orders does not exist', () => {
-            const data = {
-                "id": .1,
-                "status": "CANCELLED",
-                "completedAt": "2021-09-01T14:53:26.000Z"
-            }
             return request
-                .put(`/v1/orders/${orderID}/cancel`)
+                .put(`/v1/orders/.01/cancel`)
                 .send(data)
                 .then((res) => {
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq({ orderID })
                 });
         });
 
         it('/Orders flow violated', () => {
-            const data = {
-                "id": orderID,
-                "status": "TEST",
-                "ongoingTime": "2021-09-01T14:53:26.000Z"
-            }
+            //order already cancelled
             return request
-                .put(`/v1/orders/${orderID}/cancel`)
+                .put(`/v1/orders/${orderID}/complete`)
                 .send(data)
                 .then((res) => {
                     expect(422);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq({ orderID })
                 });
         });
 
