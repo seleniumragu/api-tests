@@ -97,7 +97,6 @@ describe('Orders', () => {
         it('/Orders to take', async () => {
             const res = await request
                 .put(`/v1/orders/${orderID}/take`)
-                .send(data)
                 .then((res) => {
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
@@ -108,7 +107,6 @@ describe('Orders', () => {
         it('/Orders complete', async () => {
             const res = await request
                 .put(`/v1/orders/${orderID}/complete`)
-                .send(data)
                 .then((res) => {
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })
@@ -118,7 +116,6 @@ describe('Orders', () => {
         it('PUT /Orders cancel', async () => {
             const res = await request
                 .put(`/v1/orders/${orderID}/cancel`)
-                .send(data)
                 .then((res) => {
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })

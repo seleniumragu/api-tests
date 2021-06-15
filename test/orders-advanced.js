@@ -86,7 +86,6 @@ describe('Orders', () => {
         it('/Orders flow violated', () => {
             return request
                 .put(`/v1/orders/${orderID}/complete`)
-                .send(data)
                 .then((res) => {
                     expect(422);
                     expect(res.body.data).to.not.be.empty;
@@ -97,7 +96,6 @@ describe('Orders', () => {
         it('/Orders to take', () => {
             return request
                 .put(`/v1/orders/${orderID}/take`)
-                .send(data)
                 .then((res) => {
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
@@ -109,7 +107,6 @@ describe('Orders', () => {
         it('/Orders does not exist', () => {
             return request
                 .put(`/v1/orders/.01/take`)
-                .send(data)
                 .then((res) => {
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
@@ -120,7 +117,6 @@ describe('Orders', () => {
         it('/Orders complete', () => {
             return request
                 .put(`/v1/orders/${orderID}/complete`)
-                .send(data)
                 .then((res) => {
                     console.log(err);
                     console.log(res.body);
@@ -135,7 +131,6 @@ describe('Orders', () => {
             // order doesn't exist
             return request
                 .put(`/v1/orders/.01/complete`)
-                .send(data)
                 .then((res) => {
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
@@ -146,7 +141,6 @@ describe('Orders', () => {
             //order already completed
             return request
                 .put(`/v1/orders/${orderID}/take`)
-                .send(data)
                 .then((res) => {
                     expect(422);
                     expect(res.body.data).to.not.be.empty;
@@ -157,7 +151,6 @@ describe('Orders', () => {
         it('PUT /Orders cancel', () => {
             return request
                 .put(`/v1/orders/${orderID}/cancel`)
-                .send(data)
                 .then((res) => {
                     expect(res.body.data).to.not.be.empty;
                     expect(res.body.data.id), to.be.eq({ orderID })
@@ -168,7 +161,6 @@ describe('Orders', () => {
         it('/Orders does not exist', () => {
             return request
                 .put(`/v1/orders/.01/cancel`)
-                .send(data)
                 .then((res) => {
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
@@ -179,7 +171,6 @@ describe('Orders', () => {
             //order already cancelled
             return request
                 .put(`/v1/orders/${orderID}/complete`)
-                .send(data)
                 .then((res) => {
                     expect(422);
                     expect(res.body.data).to.not.be.empty;
