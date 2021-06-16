@@ -68,7 +68,7 @@ describe('Orders', () => {
                     console.log(res.body);
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq(orderID)
+                    expect(res.body.data.id).to.be.eq(orderID)
                     done();
                 });
         });
@@ -79,7 +79,7 @@ describe('Orders', () => {
                 .get(`/v1/orders/${orderID}`).then((res) => {
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq(orderID)
+                    expect(res.body.data.id).to.be.eq(orderID)
                 });
         });
         //Get method Asynchronus behaviour with return
@@ -88,7 +88,7 @@ describe('Orders', () => {
                 .get('/v1/orders/.1').then((res) => {
                     expect(404);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq(orderID)
+                    expect(res.body.data.id).to.not.be.eq(orderID)
                 });
         });
     });
@@ -100,7 +100,7 @@ describe('Orders', () => {
                 .then((res) => {
                     expect(200);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.id).to.be.eq({ orderID })
                 });
         });
 
@@ -109,7 +109,7 @@ describe('Orders', () => {
                 .put(`/v1/orders/${orderID}/complete`)
                 .then((res) => {
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.id).to.be.eq({ orderID })
                 });
         });
 
@@ -118,7 +118,7 @@ describe('Orders', () => {
                 .put(`/v1/orders/${orderID}/cancel`)
                 .then((res) => {
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.id).to.be.eq({ orderID })
                 });
         });
     });

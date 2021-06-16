@@ -25,7 +25,7 @@ describe('Orders', () => {
                     expect(res.body.code).to.be(201);
                     expect(res.body.data.message).to.eq('Created')
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq(orderID)
+                    expect(res.body.data.id).to.be.eq(orderID)
 
                 });
         });
@@ -50,7 +50,7 @@ describe('Orders', () => {
                     expect(res.body.code).to.be(201);
                     expect(res.body.data.message).to.eq('Created')
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq(orderID)
+                    expect(res.body.data.id).to.be.eq(orderID)
 
                 });
         });
@@ -89,7 +89,7 @@ describe('Orders', () => {
                 .then((res) => {
                     expect(422);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.not.be.eq({ orderID })
+                    expect(res.body.data.id).to.not.be.eq({ orderID })
                 });
         });
 
@@ -121,7 +121,7 @@ describe('Orders', () => {
                     console.log(err);
                     console.log(res.body);
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.id).to.be.eq({ orderID })
                     expect(res.body.data.status).to.be.eq("COMPLETED")
 
                 });
@@ -153,7 +153,7 @@ describe('Orders', () => {
                 .put(`/v1/orders/${orderID}/cancel`)
                 .then((res) => {
                     expect(res.body.data).to.not.be.empty;
-                    expect(res.body.data.id), to.be.eq({ orderID })
+                    expect(res.body.data.id).to.be.eq({ orderID })
                     expect(res.body.data.status).to.be.eq("CANCELLED")
                 });
         });
